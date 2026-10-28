@@ -1,0 +1,39 @@
+[
+  {
+    "uuid": "11111111-aaaa-4bbb-8ccc-000000000001",
+    "name": "Planning a garden shed",
+    "summary": "",
+    "created_at": "2026-03-02T15:04:05.000000Z",
+    "updated_at": "2026-03-02T16:00:00.000000Z",
+    "account": {"uuid": "acct-1"},
+    "chat_messages": [
+      {"uuid": "m1", "parent_message_uuid": "00000000-0000-4000-8000-000000000000", "sender": "human", "text": "How big should a shed be?", "created_at": "2026-03-02T15:04:05Z", "updated_at": "2026-03-02T15:04:05Z", "attachments": [], "files": [],
+       "content": [{"type": "text", "text": "How big should a shed be?"}]},
+      {"uuid": "m2", "parent_message_uuid": "m1", "sender": "assistant", "text": "", "created_at": "2026-03-02T15:04:10Z", "updated_at": "2026-03-02T15:04:10Z", "attachments": [], "files": [],
+       "content": [{"type": "thinking", "thinking": "private reasoning"}, {"type": "text", "text": "It depends on what you store."}]},
+      {"uuid": "m3", "parent_message_uuid": "m2", "sender": "human", "text": "Mostly bikes.", "created_at": "2026-03-02T15:05:00Z", "updated_at": "2026-03-02T15:05:00Z", "attachments": [], "files": [],
+       "content": [{"type": "text", "text": "Mostly bikes."}]},
+      {"uuid": "m4", "parent_message_uuid": "m2", "sender": "human", "text": "Mostly bikes and a mower.", "created_at": "2026-03-02T15:06:00Z", "updated_at": "2026-03-02T15:06:00Z", "attachments": [], "files": [],
+       "content": [{"type": "text", "text": "Mostly bikes and a mower."}]},
+      {"uuid": "m5", "parent_message_uuid": "m4", "sender": "assistant", "text": "", "created_at": "2026-03-02T15:06:30Z", "updated_at": "2026-03-02T15:06:30Z", "attachments": [], "files": [],
+       "content": [{"type": "text", "text": "Then 8 by 10 feet."}, {"type": "tool_use", "name": "create_file", "input": {"path": "/tmp/shed.md", "file_text": "# Shed\n\n```\n8x10\n```\n", "description": "plan"}}, {"type": "tool_result", "name": "create_file", "content": [{"type": "text", "text": "ok"}]}]}
+    ]
+  },
+  {
+    "uuid": "22222222-aaaa-4bbb-8ccc-000000000002",
+    "name": "",
+    "summary": "",
+    "created_at": "2026-04-10T02:00:00Z",
+    "updated_at": "2026-04-10T02:10:00Z",
+    "account": {"uuid": "acct-1"},
+    "project": {"uuid": "proj-1", "name": "Ignored inline name"},
+    "chat_messages": [
+      {"uuid": "n1", "parent_message_uuid": "00000000-0000-4000-8000-000000000000", "sender": "human", "text": "Summarise this, it's short.", "created_at": "2026-04-10T02:00:00Z", "updated_at": "2026-04-10T02:00:00Z",
+       "attachments": [{"file_name": "notes.txt", "file_size": 20, "file_type": "text/plain", "extracted_content": "Line one.\nLine two."}],
+       "files": [{"file_uuid": "f1", "file_name": "photo.jpg"}],
+       "content": [{"type": "text", "text": "Summarise this, it's short."}]},
+      {"uuid": "n2", "parent_message_uuid": "n1", "sender": "assistant", "text": "", "created_at": "2026-04-10T02:00:05Z", "updated_at": "2026-04-10T02:00:05Z", "attachments": [], "files": [],
+       "content": [{"type": "tool_use", "name": "web_search", "input": {"query": "x"}}, {"type": "text", "text": "Two lines."}]}
+    ]
+  }
+]
