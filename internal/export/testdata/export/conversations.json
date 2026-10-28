@@ -7,10 +7,10 @@
     "updated_at": "2026-03-02T16:00:00.000000Z",
     "account": {"uuid": "acct-1"},
     "chat_messages": [
-      {"uuid": "m1", "parent_message_uuid": "00000000-0000-4000-8000-000000000000", "sender": "human", "text": "How big should a shed be?", "created_at": "2026-03-02T15:04:05Z", "updated_at": "2026-03-02T15:04:05Z", "attachments": [], "files": [],
+      {"uuid": "m1", "parent_message_uuid": "root-of-made-up-chat", "sender": "human", "text": "How big should a shed be?", "created_at": "2026-03-02T15:04:05Z", "updated_at": "2026-03-02T15:04:05Z", "attachments": [], "files": [],
        "content": [{"type": "text", "text": "How big should a shed be?"}]},
       {"uuid": "m2", "parent_message_uuid": "m1", "sender": "assistant", "text": "", "created_at": "2026-03-02T15:04:10Z", "updated_at": "2026-03-02T15:04:10Z", "attachments": [], "files": [],
-       "content": [{"type": "thinking", "thinking": "private reasoning"}, {"type": "text", "text": "It depends on what you store."}]},
+       "content": [{"type": "thinking", "thinking": "made-up thinking text"}, {"type": "text", "text": "It depends on what you store."}]},
       {"uuid": "m3", "parent_message_uuid": "m2", "sender": "human", "text": "Mostly bikes.", "created_at": "2026-03-02T15:05:00Z", "updated_at": "2026-03-02T15:05:00Z", "attachments": [], "files": [],
        "content": [{"type": "text", "text": "Mostly bikes."}]},
       {"uuid": "m4", "parent_message_uuid": "m2", "sender": "human", "text": "Mostly bikes and a mower.", "created_at": "2026-03-02T15:06:00Z", "updated_at": "2026-03-02T15:06:00Z", "attachments": [], "files": [],
@@ -28,7 +28,7 @@
     "account": {"uuid": "acct-1"},
     "project": {"uuid": "proj-1", "name": "Ignored inline name"},
     "chat_messages": [
-      {"uuid": "n1", "parent_message_uuid": "00000000-0000-4000-8000-000000000000", "sender": "human", "text": "Summarise this, it's short.", "created_at": "2026-04-10T02:00:00Z", "updated_at": "2026-04-10T02:00:00Z",
+      {"uuid": "n1", "parent_message_uuid": "root-of-made-up-chat", "sender": "human", "text": "Summarise this, it's short.", "created_at": "2026-04-10T02:00:00Z", "updated_at": "2026-04-10T02:00:00Z",
        "attachments": [{"file_name": "notes.txt", "file_size": 20, "file_type": "text/plain", "extracted_content": "Line one.\nLine two."}],
        "files": [{"file_uuid": "f1", "file_name": "photo.jpg"}],
        "content": [{"type": "text", "text": "Summarise this, it's short."}]},
