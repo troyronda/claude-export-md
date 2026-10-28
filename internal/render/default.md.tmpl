@@ -1,0 +1,23 @@
+---
+title: {{q .Title}}
+kind: conversation
+source: 'claude.ai'
+via: claude-export-md
+id: {{q .ID}}
+url: {{q .URL}}
+added: {{.Added}}
+created: {{.Created}}
+{{- if .Updated}}
+updated: {{.Updated}}
+{{- end}}
+{{- if .Project}}
+project: {{q .Project}}
+{{- end}}
+messages: {{.Messages}}
+---
+{{- range .Turns}}
+
+### {{.Speaker}}
+
+{{.Body}}
+{{- end}}
