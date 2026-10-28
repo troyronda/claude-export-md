@@ -41,6 +41,8 @@ type Report struct {
 	Seen, Matched, New, Updated, Unchanged int
 	Skipped                                map[string][]string // reason -> conversation ids
 	ProjectLinks                           int                 // conversations the export links to a project
+	Branched                               int                 // matching conversations with edit branches
+	OffBranch                              int                 // messages on those other branches, left out
 }
 
 // Run imports every matching conversation.
@@ -77,6 +79,10 @@ func Run(cfg Config) (*Report, error) {
 			return nil
 		}
 		rep.Matched++
+		if off := len(c.Messages) - len(c.Branch()); off > 0 {
+			rep.Branched++
+			rep.OffBranch += off
+		}
 		project := projects[pid]
 		if project == "" && c.Project != nil {
 			project = c.Project.Name
@@ -186,6 +192,7 @@ func (r *Report) Summary(dryRun bool) []string {
 		fmt.Sprintf("new files %s: %d", verb, r.New),
 		fmt.Sprintf("updated files %s: %d", verb, r.Updated),
 		fmt.Sprintf("unchanged:               %d", r.Unchanged),
+		fmt.Sprintf("edited conversations:    %d (current branch written; %d messages on other branches left out)", r.Branched, r.OffBranch),
 	}
 	reasons := make([]string, 0, len(r.Skipped))
 	for k := range r.Skipped {

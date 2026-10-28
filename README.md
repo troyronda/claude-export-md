@@ -56,7 +56,7 @@ How big should a shed be?
 It depends on what you store.
 ```
 
-- Only the current branch of an edited conversation is written: the path to its most recent message.
+- Only the current branch of an edited conversation is written: the path to its most recent message. (The export doesn't say which branch was on screen last, so the newest message stands in for it.) The run reports how many conversations had other branches and how many messages they held.
 - Files Claude created (`create_file`) and attachment text appear in fenced blocks. Thinking, tool calls and tool results are left out. Uploaded files whose content the export doesn't include are named.
 - `updated` appears once the importer has rewritten a file because the conversation grew.
 

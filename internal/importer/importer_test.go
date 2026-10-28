@@ -85,6 +85,9 @@ func TestFirstRunAndRerun(t *testing.T) {
 	if rep.Seen != 2 || rep.New != 2 {
 		t.Fatalf("first run: %+v", rep)
 	}
+	if rep.Branched != 1 || rep.OffBranch != 1 {
+		t.Errorf("branches: %d conversations, %d messages left out; want 1 and 1", rep.Branched, rep.OffBranch)
+	}
 	shed := filepath.Join(out, "2026-03-02-planning-a-garden-shed.md")
 	if !strings.Contains(read(t, shed), "id: '"+shedID+"'") {
 		t.Error("shed file missing its id")
