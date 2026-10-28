@@ -105,8 +105,9 @@ func (c *Conversation) ProjectID() string {
 // Branch returns the messages on the conversation's current branch, oldest
 // first. Editing a message forks the conversation; the export keeps every
 // fork, linked by parent_message_uuid. The current branch is the path from the
-// root to the most recently created message. If the messages carry no usable
-// parent links, they are returned in export order.
+// root to the most recently created message; several first messages with no
+// reply (a resent opening) are siblings, and only the newest is kept. If the
+// messages carry no parent ids at all, they are returned in export order.
 func (c *Conversation) Branch() []Message {
 	if len(c.Messages) == 0 {
 		return nil
@@ -116,6 +117,17 @@ func (c *Conversation) Branch() []Message {
 		if m.UUID != "" {
 			byID[m.UUID] = i
 		}
+	}
+	linked := false
+	for _, m := range c.Messages {
+		if m.Parent != "" {
+			linked = true
+			break
+		}
+	}
+	if !linked {
+		// No parent ids at all: keep export order.
+		return c.Messages
 	}
 	leaf := len(c.Messages) - 1
 	for i, m := range c.Messages {
@@ -128,10 +140,6 @@ func (c *Conversation) Branch() []Message {
 	for i, ok := leaf, true; ok && !seen[i]; i, ok = byID[c.Messages[i].Parent] {
 		seen[i] = true
 		path = append(path, c.Messages[i])
-	}
-	if len(path) == 1 && len(c.Messages) > 1 {
-		// No parent links: keep export order.
-		return c.Messages
 	}
 	for i, j := 0, len(path)-1; i < j; i, j = i+1, j-1 {
 		path[i], path[j] = path[j], path[i]

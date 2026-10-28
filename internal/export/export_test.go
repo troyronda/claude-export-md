@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 func collect(t *testing.T, e *Export) []*Conversation {
@@ -77,6 +78,30 @@ func TestBranch(t *testing.T) {
 	}
 	if got := strings.Join(ids, ","); got != "m1,m2,m4,m5" {
 		t.Errorf("branch = %s, want m1,m2,m4,m5 (the edited branch, not m3)", got)
+	}
+}
+
+func TestBranchEditedFirstMessage(t *testing.T) {
+	// The first message was edited and the edit is the newest message: the
+	// current branch is that one message.
+	c := &Conversation{Messages: []Message{
+		{UUID: "a", Parent: "root", CreatedAt: time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)},
+		{UUID: "b", Parent: "a", CreatedAt: time.Date(2026, 1, 1, 0, 1, 0, 0, time.UTC)},
+		{UUID: "c", Parent: "root", CreatedAt: time.Date(2026, 1, 1, 0, 2, 0, 0, time.UTC)},
+	}}
+	if b := c.Branch(); len(b) != 1 || b[0].UUID != "c" {
+		t.Errorf("branch = %v, want just the edit", b)
+	}
+}
+
+func TestBranchResentFirstMessage(t *testing.T) {
+	// Two first messages, no replies: only the newest is on the branch.
+	c := &Conversation{Messages: []Message{
+		{UUID: "a", Parent: "root", CreatedAt: time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)},
+		{UUID: "b", Parent: "root", CreatedAt: time.Date(2026, 1, 1, 0, 1, 0, 0, time.UTC)},
+	}}
+	if b := c.Branch(); len(b) != 1 || b[0].UUID != "b" {
+		t.Errorf("branch = %v, want just the newer first message", b)
 	}
 }
 
