@@ -1,25 +1,25 @@
 # Agents working in this repo
 
-This is a public Go module. Everything pushed here is public from the first push, and a tagged version is cached by the Go module proxy permanently.
+A command that converts a claude.ai data export into one Markdown file per conversation. Public.
 
-## Data
+## Build and test
 
-- Conversation exports hold private text. Process them only with local tools or Claude; never send export text to any other hosted service.
-- Never put conversation text in logs, test output, error messages or anything that leaves the machine. `--dry-run` and reports print counts only, never titles or text.
-- Test fixtures are made-up conversations only, never copies of a real export.
-- Nothing in this repo names a person's machine paths, Keychain items or private setup.
-- The tool never moves or changes the export it reads.
+```sh
+go build ./...
+go test -race ./...
+```
 
-## Git
+CI (`.github/workflows/ci.yml`) runs the shared `go` workflow from `troyronda/.github` (at `@main`) on every pull request: gofmt, a `go mod tidy` diff, `go vet`, staticcheck, govulncheck and the race tests.
 
-- Work on branches and open pull requests; the maintainer merges.
-- No attribution anywhere: no `Co-Authored-By` trailers, no "Generated with" lines, no session links.
-- Enable the hooks once: `git config core.hooksPath .githooks`. The pre-push hook runs the private-terms check and gitleaks and fails closed.
-- Tags stay at `v0.x`, and a tag is made only after every check passes.
+## Layout
 
-## Go
-
-- One module at the repo root. Commands in `cmd/<name>/`, everything else in `internal/` until another module needs it; no `pkg/`.
-- Package names are short, lowercase, singular nouns named for what they provide (no `util`, `common`, `tools` or plurals). Don't create a package before it has code.
-- CI runs on every pull request: `gofmt`, `go vet`, `staticcheck`, `govulncheck`, `go test -race ./...`, a `go mod tidy` diff check, the private-terms check and gitleaks.
+- One module at the repo root. The command is in `cmd/claude-export-md/`; everything else is in `internal/` (`export` reads exports, `render` writes Markdown, `state` records written files, `importer` runs an import). No `pkg/`.
+- Package names are short, lowercase, singular nouns. Don't create a package before it has code.
 - `go.work` is never committed; CI builds from `go.mod`.
+
+## Rules
+
+- Test fixtures are made-up conversations only, never copies of a real export.
+- No secrets in the repo, in tests or in logs. Output and errors never include conversation titles or text.
+- Dependencies: the standard library, official SDKs, or widely used and maintained libraries, pinned in `go.mod`. No dependency on small single-maintainer repositories.
+- Tags stay at `v0.x`, are made only after every check passes, and never move.
