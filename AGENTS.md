@@ -9,7 +9,7 @@ go build ./...
 go test -race ./...
 ```
 
-CI (`.github/workflows/ci.yml`) runs the shared `go` and `private-terms` workflows from `troyronda/.github` on every pull request: gofmt, a `go mod tidy` diff, `go vet`, staticcheck, govulncheck, the race tests, gitleaks and the private-terms check.
+CI (`.github/workflows/ci.yml`) runs the shared `go` workflow from `troyronda/.github` (at `@main`) on every pull request: gofmt, a `go mod tidy` diff, `go vet`, staticcheck, govulncheck and the race tests.
 
 ## Layout
 
